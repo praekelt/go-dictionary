@@ -29,42 +29,25 @@ describe("app", function() {
                     .check.interaction({
                         state: 'states:start',
                         reply: [
-                            'Hi there! What do you want to do?',
-                            '1. Show this menu again',
-                            '2. Exit'
-                        ].join('\n')
+                            'Hi there! What word would you like the definition',
+                            ' for?'
+                        ].join('')
                     })
                     .run();
             });
         });
 
-        describe("when the user asks to see the menu again", function() {
-            it("should show the menu again", function() {
+        describe("when the user requests a word", function() {
+            it("should give them a definition", function() {
                 return tester
                     .setup.user.state('states:start')
-                    .input('1')
-                    .check.interaction({
-                        state: 'states:start',
-                        reply: [
-                            'Hi there! What do you want to do?',
-                            '1. Show this menu again',
-                            '2. Exit'
-                        ].join('\n')
-                    })
-                    .run();
-            });
-        });
-
-        describe("when the user asks to exit", function() {
-            it("should say thank you and end the session", function() {
-                return tester
-                    .setup.user.state('states:start')
-                    .input('2')
+                    .input('test')
                     .check.interaction({
                         state: 'states:end',
-                        reply: 'Thanks, cheers!'
+                        reply: [
+                            'Definition of test: Not yet implemented.'
+                        ].join('\n')
                     })
-                    .check.reply.ends_session()
                     .run();
             });
         });
