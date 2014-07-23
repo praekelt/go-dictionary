@@ -51,8 +51,16 @@ go.app = function() {
         });
 
         self.states.add('states:end', function(name, opts) {
+            //truncate the response if it's too long
+            var response = 'Definition of ' + opts.query + ": " 
+                + opts.definition;
+            if(response.length > self.im.config.responselength) {
+                response = response.substring(0, self.im.config.responselength 
+                    - 3) + "...";
+            }
+
             return new EndState(name, {
-                text: 'Definition of ' + opts.query + ": " + opts.definition,
+                text: response,
                 next: 'states:start'
             });
         });

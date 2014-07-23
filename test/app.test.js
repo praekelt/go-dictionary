@@ -15,7 +15,8 @@ describe("app", function() {
             tester
                 .setup.config.app({
                     name: 'go-dictionary',
-                    apikey: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
+                    apikey: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5',
+                    responselength: '160'
                 })
                 .setup(function(api) {
                     fixtures().forEach(api.http.fixtures.add);
@@ -50,6 +51,25 @@ describe("app", function() {
                             " refinement."
                         ].join('')
                     })
+                    .run();
+            });
+        });
+
+        describe("when the user requests a too long word", function() {
+            it("should give them a truncated definition", function() {
+                return tester
+                    .setup.user.state('states:start')
+                    .input('longword')
+                    .check.interaction({
+                        state: 'states:end',
+                        reply: [
+                            "Definition of longword: This is a definition that",
+                            " is very very very very very very very very very ",
+                            "very very very very very very very very very very",
+                            " very very..."
+                        ].join('')
+                    })
+                    .check.reply.char_limit(160)
                     .run();
             });
         });
