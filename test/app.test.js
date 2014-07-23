@@ -44,8 +44,10 @@ describe("app", function() {
                     .check.interaction({
                         state: 'states:end',
                         reply: [
-                            'Definition of test: Not yet implemented.'
-                        ].join('\n')
+                            "Definition of test: A cupel or cupelling hearth ",
+                            "in which precious metals are melted for trial and",
+                            " refinement."
+                        ].join('')
                     })
                     .run();
             });
