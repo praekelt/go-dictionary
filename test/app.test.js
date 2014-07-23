@@ -14,7 +14,8 @@ describe("app", function() {
 
             tester
                 .setup.config.app({
-                    name: 'test_app'
+                    name: 'go-dictionary',
+                    apikey: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
                 })
                 .setup(function(api) {
                     fixtures().forEach(api.http.fixtures.add);
@@ -44,8 +45,10 @@ describe("app", function() {
                     .check.interaction({
                         state: 'states:end',
                         reply: [
-                            'Definition of test: Not yet implemented.'
-                        ].join('\n')
+                            "Definition of test: A cupel or cupelling hearth ",
+                            "in which precious metals are melted for trial and",
+                            " refinement."
+                        ].join('')
                     })
                     .run();
             });
