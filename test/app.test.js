@@ -69,6 +69,7 @@ describe("app", function() {
                             " very very..."
                         ].join('')
                     })
+                    .check.reply.char_limit(160)
                     .run();
             });
         });
