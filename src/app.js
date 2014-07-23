@@ -27,8 +27,7 @@ go.app = function() {
                                     "limit":"1",
                                     "sourceDictionaries":"webster",
                                     "useCanonical":"true",
-                                    "api_key":
-                            "a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5"
+                                    "api_key":self.im.config.apikey
                                 }
                             })
                         .then(function(resp) {
