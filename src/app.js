@@ -74,7 +74,7 @@ go.app = function() {
         self.states.add('states:wordchoice', function(name, opts) {
             // Build a list of choices from the 'nearest' word as well as
             // related words.
-            choiceList = [new Choice(opts.word, opts.word)];
+            var choiceList = [new Choice(opts.word, opts.word)];
             for(var relatedWord in opts.related) {
                 for(var word in opts.related[relatedWord].words) {
                     var wordToAdd = opts.related[relatedWord].words[word];
