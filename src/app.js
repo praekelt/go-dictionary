@@ -42,9 +42,19 @@ go.app = function() {
                                 }
                             })
                         .then(function(resp) {
+                            // If no related words are found, send to a 
+                            // different end state
+                            if(!resp.data[0] || !resp.data[0].word) {
+                                return {
+                                    name: 'states:nothingfound',
+                                    creator_opts: {
+                                        query:content
+                                    }
+                                };
+                            }
                             // If the searched word isn't found, give the user a
-                            // choice of related words to choose from
-                            if(content != resp.data[0].word) {
+                            // choice of related words to choose from.
+                            else if(content != resp.data[0].word) {
                                 return {
                                     name: 'states:wordchoice',
                                     creator_opts: {
@@ -135,6 +145,17 @@ go.app = function() {
                 next: 'states:start'
             });
         });
+
+        self.states.add('states:nothingfound', function(name, opts) {
+            return new EndState(name, {
+                text: [
+                    "Sorry, no results were found for the search term '",
+                    opts.query,
+                    "'"].join(''),
+                next: 'states:start'
+            });
+        });
+
     });
 
     return {

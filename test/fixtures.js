@@ -127,6 +127,23 @@ module.exports = function() {
     {
         "request": {
             "method": "GET",
+            "url": "http://api.wordnik.com/v4/word.json/notaword/definitions",
+            "params": {
+                "limit":"1",
+                "includeRelated":"true",
+                "sourceDictionaries":"webster",
+                "useCanonical":"true",
+                "api_key":"a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5"
+            }
+        },
+        "response": {
+            "code": 200,
+            "data": []
+        }
+    },
+    {
+        "request": {
+            "method": "GET",
             "url": "http://api.wordnik.com/v4/word.json/longword/definitions",
             "params": {
                 "limit":"1",

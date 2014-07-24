@@ -82,12 +82,13 @@ describe("app", function() {
                     .check.interaction({
                         state: 'states:wordchoice',
                         reply: [
-                "Your word was not found, did you mean one of the following?",
-                "1. add",
-                "2. added",
-                "3. adding",
-                "4. added",
-                "5. adding"
+                            "Your word was not found, did you mean one of the "
+                            + "following?",
+                            "1. add",
+                            "2. added",
+                            "3. adding",
+                            "4. added",
+                            "5. adding"
                         ].join('\n')
                     })
                     .check.reply.char_limit(160)
@@ -106,6 +107,22 @@ describe("app", function() {
                             "Definition of add: To give by way of increased ",
                             "possession (to any one); to bestow (on)."
                         ].join('')
+                    })
+                    .run();
+            });
+        });
+
+        describe("when the user querys a word with no result", function() {
+            it("should send them to an alternative end screen", function() {
+                return tester
+                    .setup.user.state('states:start')
+                    .input('notaword')
+                    .check.interaction({
+                        state: 'states:nothingfound',
+                        reply: [
+                            "Sorry, no results were found for the search term ",
+                            "'notaword'"
+                            ].join('')
                     })
                     .run();
             });
