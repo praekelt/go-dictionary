@@ -82,7 +82,7 @@ describe("app", function() {
                     .check.interaction({
                         state: 'states:wordchoice',
                         reply: [
-                "Your word was not found, please select from the following:",
+                "Your word was not found, did you mean one of the following?",
                 "1. add",
                 "2. added",
                 "3. adding",
