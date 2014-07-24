@@ -73,5 +73,61 @@ describe("app", function() {
                     .run();
             });
         });
+
+        describe("when the user requests an unknown word", function() {
+            it("should give them a list of related words", function() {
+                return tester
+                    .setup.user.state('states:start')
+                    .input('asd')
+                    .check.interaction({
+                        state: 'states:wordchoice',
+                        reply: [
+                            "Your word was not found, did you mean one of the "
+                            + "following?",
+                            "1. add",
+                            "2. added",
+                            "3. adding",
+                            "4. added",
+                            "5. adding"
+                        ].join('\n')
+                    })
+                    .check.reply.char_limit(160)
+                    .run();
+            });
+        });
+
+        describe("when the user selects a choice for an unknown word", function() {
+            it("should give them the definition of the new word", function() {
+                return tester
+                    .setup.user.state('states:start')
+                    .inputs('asd', '1')
+                    .check.interaction({
+                        state: 'states:end',
+                        reply: [
+                            "Definition of add: To give by way of increased ",
+                            "possession (to any one); to bestow (on)."
+                        ].join('')
+                    })
+                    .run();
+            });
+        });
+
+        describe("when the user querys a word with no result", function() {
+            it("should send them to an alternative end screen", function() {
+                return tester
+                    .setup.user.state('states:start')
+                    .input('notaword')
+                    .check.interaction({
+                        state: 'states:nothingfound',
+                        reply: [
+                            "Sorry, no results were found for the search term ",
+                            "'notaword'"
+                            ].join('')
+                    })
+                    .run();
+            });
+        });
+
+
     });
 });
